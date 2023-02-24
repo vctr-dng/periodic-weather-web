@@ -1,5 +1,5 @@
-import {UserQueue} from './cls/UserQueue.js'
-import {User} from './cls/User.js'
+import {UserQueue} from './UserQueue.js'
+import {User} from './User.js'
 
 var maxUser = 10
 var userAPI_URL = "https://randomuser.me/api/?nat=fr&inc=name,location"
@@ -34,7 +34,6 @@ function requestNewUser() {
             console.log(individualData)
             return individualData
         })
-        .done
 }
 
 function addUser() {
