@@ -16,34 +16,6 @@ class User {
     this.coordinates = coordinates; // [latitude, longitude]
   }
 
-  getIdentity() {
-    return `${this.first} ${this.last}`;
-  }
-
-  async addMarker(map) {
-    let marker = L.marker(this.coordinates).addTo(map);
-    let weatherData = await this.getWeather();
-    console.log(weatherData);
-    let popupMsg = `<p class=popup>
-    ${this.getIdentity()}
-    <span class=city>${this.city}</span>
-    <span class=temperature>${weatherData.temperature}°C</span>
-    <span class=weathercode>${weatherData.weathercode}</span></p>`;
-    marker.bindPopup(popupMsg);
-
-    this.marker = marker;
-  }
-
-  async getWeather() {
-    const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${this.coordinates[0]}&longitude=${this.coordinates[0]}&current_weather=true`
-    );
-    const data = await response.json();
-    const weatherData = await data.current_weather;
-
-    return weatherData;
-  }
-
   static async createUser() {
     var randomUser = await User.requestNewUser();
 
@@ -59,21 +31,6 @@ class User {
     );
 
     return user;
-  }
-
-  static createUserFromRandomUser(dataAPI) {
-    /*
-        Creates a function with dataAPI fetched from the randomuser.me API
-        */
-
-    let data = dataAPI;
-
-    //console.log(dataAPI)
-    let first = dataAPI["name"]["first"];
-    let last = dataAPI["name"]["last"];
-    let coordinates = dataAPI["location"]["coordinates"];
-
-    return new User(first, last, coordinates);
   }
 
   static async requestNewUser() {
@@ -106,5 +63,33 @@ class User {
     const coordinates = [geolocationData.latitude, geolocationData.longitude];
 
     return coordinates;
+  }
+
+  async addMarker(map) {
+    let marker = L.marker(this.coordinates).addTo(map);
+    let weatherData = await this.getWeather();
+    console.log(weatherData);
+    let popupMsg = `<p class=popup>
+    ${this.getIdentity()}
+    <span class=city>${this.city}</span>
+    <span class=temperature>${weatherData.temperature}°C</span>
+    <span class=weathercode>${weatherData.weathercode}</span></p>`;
+    marker.bindPopup(popupMsg);
+
+    this.marker = marker;
+  }
+
+  async getWeather() {
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${this.coordinates[0]}&longitude=${this.coordinates[0]}&current_weather=true`
+    );
+    const data = await response.json();
+    const weatherData = await data.current_weather;
+
+    return weatherData;
+  }
+
+  getIdentity() {
+    return `${this.first} ${this.last}`;
   }
 }
