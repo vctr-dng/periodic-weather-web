@@ -3,9 +3,10 @@ export { User };
 var userAPI_URL = "https://randomuser.me/api/?nat=fr&inc=name,location&noinfo";
 
 class User {
-  constructor(first, last, coordinates) {
+  constructor(first, last, city, coordinates) {
     this.first = first;
     this.last = last;
+    this.city = city;
     this.coordinates = coordinates; // [latitude, longitude]
   }
 
@@ -29,6 +30,7 @@ class User {
     let user = new User(
       randomUser.name.first,
       randomUser.name.last,
+      randomUser.location.city,
       correctCoordinates
     );
 
