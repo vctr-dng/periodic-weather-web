@@ -9,15 +9,13 @@ function init() {
 
   var userQueue = createUserQueue(maxUser);
 
-  /*
-    setInterval(async() => {
-        let usr = await User.createUser()
-        console.log(usr)
-        userQueue.add(usr)
-        console.log(userQueue)
-    },
-    msInterval)
-    */
+  setInterval(async () => {
+    let usr = await User.createUser();
+
+    let weatherData = await usr.getWeather();
+
+    userQueue.add(usr);
+  }, msInterval);
 }
 
 function createMap() {

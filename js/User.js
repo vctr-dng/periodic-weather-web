@@ -9,16 +9,22 @@ class User {
     this.coordinates = coordinates; // [latitude, longitude]
   }
 
+  async getWeather() {
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${this.coordinates[0]}&longitude=${this.coordinates[0]}&current_weather=true`
+    );
+    const data = await response.json();
+    const weatherData = await data.current_weather;
+
+    return weatherData;
+  }
+
   static async createUser() {
     var randomUser = await User.requestNewUser();
-
-    console.log(randomUser);
 
     let correctCoordinates = await User.getCoordinatesFromCity(
       randomUser.location.city
     );
-
-    console.log(correctCoordinates);
 
     let user = new User(
       randomUser.name.first,
