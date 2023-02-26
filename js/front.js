@@ -32,8 +32,6 @@ function createMap() {
   return map;
 }
 
-function addUser() {}
-
 function createUserQueue(maxLen) {
   if (maxLen < 0) {
     maxLen = 0;
