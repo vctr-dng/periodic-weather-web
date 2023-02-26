@@ -6,7 +6,7 @@ class User {
   constructor(first, last, coordinates) {
     this.first = first;
     this.last = last;
-    this.coordinates = coordinates; // [longitude, latitude]
+    this.coordinates = coordinates; // [latitude, longitude]
   }
 
   static async createUser() {
@@ -71,7 +71,7 @@ class User {
     );
     const data = await response.json();
     const geolocationData = await data.results["0"];
-    const coordinates = [geolocationData.longitude, geolocationData.latitude];
+    const coordinates = [geolocationData.latitude, geolocationData.longitude];
 
     return coordinates;
   }
