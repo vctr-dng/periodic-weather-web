@@ -68,7 +68,6 @@ class User {
   async addMarker(map) {
     let marker = L.marker(this.coordinates).addTo(map);
     let weatherData = await this.getWeather();
-    console.log(weatherData);
     let popupMsg = `<p class=popup>
     ${this.getIdentity()}
     <span class=city>${this.city}</span>

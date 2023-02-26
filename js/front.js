@@ -10,24 +10,27 @@ function init() {
   var userQueue = createUserQueue(maxUser);
 
   setInterval(async () => {
-    let usr = await User.createUser();
+    let user = await User.createUser();
 
-    let weatherData = await usr.getWeather();
+    user.addMarker(map);
 
-    usr.addMarker(map);
-    console.log(usr);
+    let userToRemove = userQueue.add(user);
 
-    userQueue.add(usr);
+    if (userToRemove != null) {
+      map.removeLayer(userToRemove.marker);
+    }
   }, msInterval);
 }
 
 function createMap() {
   var map = L.map("map", {
+    // The coordinates of the center of France is given by the IGN institution
     center: [46.54, 2.43],
+    // Parameters to finetune the zooming feature
     zoomSnap: 0.1,
     zoomDelta: 0.1,
     zoom: 6.4,
-  }); // The coordinates of the center of France is given by the IGN institution
+  }); 
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,

@@ -10,19 +10,23 @@ class UserQueue {
   }
 
   add(usr) {
+    let res = null;
     this.queue.push(usr);
     this.length++;
     if (this.maxLen > 0) {
       if (this.length > this.maxLen) {
-        this.remove();
+        res = this.remove();
       }
     }
+
+    return res;
   }
 
   remove() {
     if (this.length > 0) {
-      this.queue.shift();
+      let userRemoved = this.queue.shift();
       this.length--;
+      return userRemoved;
     }
   }
 }
