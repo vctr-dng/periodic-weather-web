@@ -69,9 +69,9 @@ class User {
     let marker = L.marker(this.coordinates).addTo(map);
     let weatherData = await this.getWeather();
     let popupMsg = `<p class=popup>
-    ${this.getIdentity()}
-    <span class=city>${this.city}</span>
-    <span class=temperature>${weatherData.temperature}°C</span>
+    ${this.getIdentity()}<br>
+    <span class=city>${this.city}</span><br>
+    <span class=temperature>${weatherData.temperature}°C</span><br>
     <span class=weathercode>${weatherData.weathercode}</span></p>`;
     marker.bindPopup(popupMsg);
 

@@ -11,26 +11,21 @@ html {
 
 .popup {
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .popup .city {
-  display: flex;
-  justify-content: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   color: rgb(50, 50, 50);
 }
 
 .popup .temperature {
-  display: flex;
-  justify-content: center;
-  font-size: 14px;
+  font-weight: italic;
+  font-size: 16px;
 }
 
 .popup .weathercode {
-  display: flex;
-  justify-content: center;
   font-style: italic;
-  font-size: 12px;
+  font-size: 13px;
 }
