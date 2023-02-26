@@ -4,8 +4,8 @@ var userAPI_URL = "https://randomuser.me/api/?nat=fr&inc=name,location&noinfo";
 
 class User {
   /**
-   * * API used : randomuser.me
-   *              open-meteo.com
+   * ? API used : randomuser.me
+   * ?            open-meteo.com
    *
    * * Data stucture
    * string - first
@@ -38,13 +38,13 @@ class User {
    * createUser
    * * asynchronous
    * * Create a new User entity from the information provided by the APIs
-   * @returns User entity
+   * @returns {User}
    */
   static async createUser() {
     var randomUser = await User.requestNewUser();
 
     /*
-      ? Coordinates provided by randomuser API are not correlated with nationality, relevanted coordinates are inferred from the user's city ?
+      ? Coordinates provided by randomuser API are not correlated with nationality, relevanted coordinates are inferred from the user's city
     */
     let correctCoordinates = await User.getCoordinatesFromCity(
       randomUser.location.city
@@ -64,7 +64,7 @@ class User {
    * requestNewUser
    * * asynchronous
    * * Fetch from randomuser API user information
-   * @returns Array
+   * @returns {Array}
    */
   static async requestNewUser() {
     const response = await fetch(userAPI_URL);
@@ -79,7 +79,7 @@ class User {
    * * asynchronous
    * * Fetch from open-meteo API the coordinates of a given city
    * @param {string} city
-   * @returns {[float, float]} coordinates - [latitude, longitude]
+   * @returns {[float, float]} - coordinates - [latitude, longitude]
    */
   static async getCoordinatesFromCity(city) {
     const response = await fetch(
@@ -90,41 +90,6 @@ class User {
     const coordinates = [geolocationData.latitude, geolocationData.longitude];
 
     return coordinates;
-  }
-
-  /**
-   * addMarker
-   * * asynchronous
-   * * Place a marker with relevant weather information on a given map
-   * @param {*} map 
-   */
-  async addMarker(map) {
-    let marker = L.marker(this.coordinates).addTo(map);
-    let weatherData = await this.getWeather();
-    let popupMsg = `<p class=popup>
-    ${this.getIdentity()}<br>
-    <span class=city>${this.city}</span><br>
-    <span class=temperature>${weatherData.temperature}°C</span><br>
-    <span class=weathercode>${weatherData.weathercode}</span></p>`;
-    marker.bindPopup(popupMsg);
-
-    this.marker = marker;
-  }
-
-  /**
-   * getWeather
-   * * asynchronous
-   * * Fetch from open-meteo API weather information at the user's coordinates
-   * @returns 
-   */
-  async getWeather() {
-    const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${this.coordinates[0]}&longitude=${this.coordinates[0]}&current_weather=true`
-    );
-    const data = await response.json();
-    const weatherData = await data.current_weather;
-
-    return weatherData;
   }
 
   /**

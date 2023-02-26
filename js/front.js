@@ -1,18 +1,27 @@
 import { UserQueue } from "./UserQueue.js";
 import { User } from "./User.js";
+import { WeatherUI } from "./WeatherUI.js"
 
-var maxUser = 10;
-var msInterval = 1000;
 
+/**
+ * ! EDITABLE SETTINGS !
+ */
+var maxUser = 10; // Maximum user on the map
+var msInterval = 1000; // Interval in ms spacing out the retrieval of a new user
+
+/**
+ * init
+ * * Main function starting the loop to place a random user with their associated weather information
+ */
 function init() {
   var map = createMap();
-
+  var weatherUI = new WeatherUI(map);
   var userQueue = createUserQueue(maxUser);
 
   setInterval(async () => {
     let user = await User.createUser();
 
-    user.addMarker(map);
+    weatherUI.addUserMarker(user);
 
     let userToRemove = userQueue.add(user);
 
@@ -22,6 +31,10 @@ function init() {
   }, msInterval);
 }
 
+/**
+ * * Create a map centered on France and display it as a HTML element
+ * @returns Leaflet map object entity
+ */
 function createMap() {
   var map = L.map("map", {
     // The coordinates of the center of France is given by the IGN institution
@@ -41,6 +54,13 @@ function createMap() {
   return map;
 }
 
+/**
+ * createUserQueue
+ * * Create a user queue (FIFO)
+ * ? if the maximum length is below or equal to 0 then the queue is infinite
+ * @param {*} maxLen 
+ * @returns 
+ */
 function createUserQueue(maxLen) {
   if (maxLen < 0) {
     maxLen = 0;
