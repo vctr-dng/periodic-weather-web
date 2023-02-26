@@ -2,7 +2,7 @@ import {UserQueue} from './UserQueue.js'
 import {User} from './User.js'
 
 var maxUser = 10
-var userAPI_URL = "https://randomuser.me/api/?nat=fr&inc=name,location"
+var userAPI_URL = "https://randomuser.me/api/?nat=fr&inc=name,location&noinfo"
 
 function init() {
 
@@ -12,28 +12,35 @@ function init() {
 
 }
 
-function createUser() {
-    var userFromAPI = requestNewUser();
+async function createUser() {
+    var userFromAPI = await requestNewUser();
+    console.log("here is the individual")
     console.log(userFromAPI)
-    //let user = User.createUserFromRandomUser(userFromAPI)
 
+    let user = User.createUserFromRandomUser(userFromAPI)
+
+    console.log(user)
 }
 
-function requestNewUser() {
-    return fetch(userAPI_URL)
+async function requestNewUser() {
+    const response = await fetch(userAPI_URL)
+
+    /*
         .then((response) => {
             return response.json()
         })
         .then((data) => {
-            //console.log("fetched")
-            //console.log(data.results['0'])
             return data.results['0']
         })
         .then((individualData) => {
-            console.log("here is the individual")
-            console.log(individualData)
             return individualData
         })
+    */
+
+    const data = await response.json()
+    const individualData = data.results['0']
+    
+    return individualData
 }
 
 function addUser() {

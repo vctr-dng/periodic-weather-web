@@ -15,11 +15,11 @@ class User {
 
         let data = dataAPI
         
-        console.log(dataAPI)
+        //console.log(dataAPI)
         let first = dataAPI['name']['first'];
         let last = dataAPI['name']['last'];
         let coordinates = dataAPI['location']['coordinates']
 
-        return User.prototype.constructor(first, last, coordinates)
+        return new User(first, last, coordinates)
     }
 }
