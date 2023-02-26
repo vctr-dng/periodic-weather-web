@@ -14,12 +14,20 @@ function init() {
 
     let weatherData = await usr.getWeather();
 
+    usr.addMarker(map);
+    console.log(usr);
+
     userQueue.add(usr);
   }, msInterval);
 }
 
 function createMap() {
-  var map = L.map("map").setView([46.54, 2.43], 6); // The coordinates of the center of France is given by the IGN institution
+  var map = L.map("map", {
+    center: [46.54, 2.43],
+    zoomSnap: 0.1,
+    zoomDelta: 0.1,
+    zoom: 6.4,
+  }); // The coordinates of the center of France is given by the IGN institution
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,

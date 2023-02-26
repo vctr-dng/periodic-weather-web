@@ -3,11 +3,35 @@ export { User };
 var userAPI_URL = "https://randomuser.me/api/?nat=fr&inc=name,location&noinfo";
 
 class User {
+  first;
+  last;
+  city;
+  coordinates;
+  marker;
+
   constructor(first, last, city, coordinates) {
     this.first = first;
     this.last = last;
     this.city = city;
     this.coordinates = coordinates; // [latitude, longitude]
+  }
+
+  getIdentity() {
+    return `${this.first} ${this.last}`;
+  }
+
+  async addMarker(map) {
+    let marker = L.marker(this.coordinates).addTo(map);
+    let weatherData = await this.getWeather();
+    console.log(weatherData);
+    let popupMsg = `<p class=popup>
+    ${this.getIdentity()}
+    <span class=city>${this.city}</span>
+    <span class=temperature>${weatherData.temperature}°C</span>
+    <span class=weathercode>${weatherData.weathercode}</span></p>`;
+    marker.bindPopup(popupMsg);
+
+    this.marker = marker;
   }
 
   async getWeather() {
