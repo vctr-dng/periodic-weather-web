@@ -10,6 +10,7 @@ html {
 }
 
 /**
+   * ? Popup styles
 */
 
 .popup {
@@ -30,5 +31,5 @@ html {
 
 .popup .weathercode {
   font-style: italic;
-  font-size: 13px;
+  font-size: 12px;
 }

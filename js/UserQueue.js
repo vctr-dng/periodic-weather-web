@@ -13,7 +13,7 @@ class UserQueue {
 
   /**
    * constructor
-   * @param {*} maxLen 
+   * @param {*} maxLen
    */
   constructor(maxLen) {
     this.maxLen = maxLen;
@@ -23,7 +23,7 @@ class UserQueue {
    * add
    * * Add a new user to the queue
    * ? If the maximum length is exceeded, the top user is removed from the queue and this user is returned
-   * @param {User} user 
+   * @param {User} user
    * @returns {User or null}
    */
   add(user) {

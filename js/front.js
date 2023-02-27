@@ -1,7 +1,6 @@
 import { UserQueue } from "./UserQueue.js";
 import { User } from "./User.js";
-import { WeatherUI } from "./WeatherUI.js"
-
+import { WeatherUI } from "./WeatherUI.js";
 
 /**
  * ! EDITABLE SETTINGS !
@@ -43,7 +42,7 @@ function createMap() {
     zoomSnap: 0.1,
     zoomDelta: 0.1,
     zoom: 6.4,
-  }); 
+  });
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
@@ -58,8 +57,8 @@ function createMap() {
  * createUserQueue
  * * Create a user queue (FIFO)
  * ? if the maximum length is below or equal to 0 then the queue is infinite
- * @param {*} maxLen 
- * @returns 
+ * @param {*} maxLen
+ * @returns
  */
 function createUserQueue(maxLen) {
   if (maxLen < 0) {
