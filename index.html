@@ -4,6 +4,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
+    <!-- Load Leaflet's CSS file -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -11,18 +12,22 @@
       crossorigin=""
     />
     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <!-- Load Leaflet's Javascript file -->
     <script
       src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
       integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
       crossorigin=""
     ></script>
 
+    <!-- Load local CSS file -->
     <link rel="stylesheet" type="text/css" href="./assets/styles.css" />
 
+    <!-- Load local Javascript file -->
     <script language="Javascript" src="./js/front.js" type="module"></script>
   </head>
 
   <body>
+    <!-- Place Leaflet map entity -->
     <div id="map"></div>
   </body>
 </html>
